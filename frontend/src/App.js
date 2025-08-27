@@ -3,29 +3,50 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthContext, AuthProvider } from './contexts/AuthContext';
 import Login from './components/Login';
 import Register from './components/Register';
+
+// Admin Components
 import AdminDashboard from './components/AdminDashboard';
+import AdminBooks from './components/AdminBooks';
+import AdminCategories from './components/AdminCategories';
+import AdminPublishers from './components/AdminPublishers';
+import AdminUserManagement from './components/admin/AdminUserManagement';
+import AdminMemberManagement from './components/admin/AdminMemberManagement';
+import AdminLendingManagement from './components/admin/AdminLendingManagement';
+import AdminSettings from './components/admin/AdminSettings';
+
+// Librarian Components
 import LibrarianDashboard from './components/LibrarianDashboard';
+import LibrarianBooks from './components/librarian/LibrarianBooks';
+import LibrarianLendingManagement from './components/librarian/LibrarianLendingManagement';
+import LibrarianMemberManagement from './components/librarian/LibrarianMemberManagement';
+import LibrarianReports from './components/librarian/LibrarianReports';
+
+// Siswa Components
 import SiswaDashboard from './components/SiswaDashboard';
 import SiswaBooks from './components/SiswaBooks';
-import AdminBooks from './components/AdminBooks';
+import SiswaLendings from './components/siswa/SiswaLendings';
+import SiswaNotifications from './components/siswa/SiswaNotifications';
+
+// Shared Components
 import CategoriesManagement from './components/CategoriesManagement';
 import PublishersManagement from './components/PublishersManagement';
-import UserProfile from './components/UserProfile';
+import Profile from './components/Profile';
 import Books from './components/Books';
-import UsersManagement from './components/UsersManagement';
-import LendingManagement from './components/LendingManagement';
+import UserPeminjaman from './components/UserPeminjaman';
 import Unauthorized from './components/Unauthorized';
+import NotFound from './components/NotFound';
+import LandingPage from './components/LandingPage';
 import './App.css';
 
 // Protected Route component  
 const ProtectedRoute = ({ children, allowedRoles = [] }) => {
-  const { isAuthenticated, user, loading } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="loading-screen">Loading...</div>;
   }
 
-  if (!isAuthenticated) {
+  if (!user) {
     return <Navigate to="/login" replace />;
   }
 
@@ -39,13 +60,13 @@ const ProtectedRoute = ({ children, allowedRoles = [] }) => {
 
 // Public Route component (redirect to dashboard if already authenticated)
 const PublicRoute = ({ children }) => {
-  const { isAuthenticated, user, loading } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="loading-screen">Loading...</div>;
   }
 
-  if (isAuthenticated && user) {
+  if (user) {
     // Redirect to appropriate dashboard
     switch (user.role) {
       case 'admin':
@@ -68,6 +89,9 @@ function App() {
       <Router>
         <div className="App">
           <Routes>
+            {/* Landing Page */}
+            <Route path="/" element={<LandingPage />} />
+
             {/* Public Routes */}
             <Route path="/login" element={
               <PublicRoute>
@@ -93,67 +117,104 @@ function App() {
             } />
             <Route path="/admin/categories" element={
               <ProtectedRoute allowedRoles={['admin']}>
-                <CategoriesManagement />
+                <AdminCategories />
               </ProtectedRoute>
             } />
             <Route path="/admin/publishers" element={
               <ProtectedRoute allowedRoles={['admin']}>
-                <PublishersManagement />
+                <AdminPublishers />
               </ProtectedRoute>
             } />
             <Route path="/admin/users" element={
               <ProtectedRoute allowedRoles={['admin']}>
-                <UsersManagement />
+                <AdminUserManagement />
               </ProtectedRoute>
             } />
-            <Route path="/admin/lending" element={
+            <Route path="/admin/members" element={
               <ProtectedRoute allowedRoles={['admin']}>
-                <LendingManagement />
+                <AdminMemberManagement />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/lendings" element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminLendingManagement />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/settings" element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminSettings />
               </ProtectedRoute>
             } />
 
             {/* Librarian Routes */}
             <Route path="/librarian/dashboard" element={
-              <ProtectedRoute allowedRoles={['librarian', 'admin']}>
+              <ProtectedRoute allowedRoles={['librarian']}>
                 <LibrarianDashboard />
               </ProtectedRoute>
             } />
             <Route path="/librarian/books" element={
-              <ProtectedRoute allowedRoles={['librarian', 'admin']}>
-                <Books />
+              <ProtectedRoute allowedRoles={['librarian']}>
+                <LibrarianBooks />
               </ProtectedRoute>
             } />
-            <Route path="/librarian/lending" element={
-              <ProtectedRoute allowedRoles={['librarian', 'admin']}>
-                <LendingManagement />
+            <Route path="/librarian/lendings" element={
+              <ProtectedRoute allowedRoles={['librarian']}>
+                <LibrarianLendingManagement />
+              </ProtectedRoute>
+            } />
+            <Route path="/librarian/members" element={
+              <ProtectedRoute allowedRoles={['librarian']}>
+                <LibrarianMemberManagement />
+              </ProtectedRoute>
+            } />
+            <Route path="/librarian/reports" element={
+              <ProtectedRoute allowedRoles={['librarian']}>
+                <LibrarianReports />
               </ProtectedRoute>
             } />
 
             {/* Siswa Routes */}
             <Route path="/siswa/dashboard" element={
-              <ProtectedRoute allowedRoles={['siswa', 'admin', 'librarian']}>
+              <ProtectedRoute allowedRoles={['siswa']}>
                 <SiswaDashboard />
               </ProtectedRoute>
             } />
             <Route path="/siswa/books" element={
-              <ProtectedRoute allowedRoles={['siswa', 'admin', 'librarian']}>
+              <ProtectedRoute allowedRoles={['siswa']}>
                 <SiswaBooks />
+              </ProtectedRoute>
+            } />
+            <Route path="/siswa/lendings" element={
+              <ProtectedRoute allowedRoles={['siswa']}>
+                <SiswaLendings />
+              </ProtectedRoute>
+            } />
+            <Route path="/siswa/notifications" element={
+              <ProtectedRoute allowedRoles={['siswa']}>
+                <SiswaNotifications />
               </ProtectedRoute>
             } />
 
             {/* Shared Routes */}
             <Route path="/profile" element={
               <ProtectedRoute>
-                <UserProfile />
+                <Profile />
+              </ProtectedRoute>
+            } />
+            <Route path="/books" element={
+              <ProtectedRoute>
+                <Books />
+              </ProtectedRoute>
+            } />
+            <Route path="/user/peminjaman" element={
+              <ProtectedRoute>
+                <UserPeminjaman />
               </ProtectedRoute>
             } />
 
             {/* Error Routes */}
             <Route path="/unauthorized" element={<Unauthorized />} />
-
-            {/* Default Routes */}
-            <Route path="/" element={<Navigate to="/login" replace />} />
-            <Route path="*" element={<Navigate to="/login" replace />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </Router>

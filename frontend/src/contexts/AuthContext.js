@@ -147,7 +147,12 @@ export const AuthProvider = ({ children }) => {
     const logout = async () => {
         try {
             // Call logout endpoint
-            await axios.post('/api/logout');
+            const token = localStorage.getItem('token');
+            if (token) {
+                await axios.post('http://127.0.0.1:8000/api/logout', {}, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+            }
         } catch (error) {
             console.error('Logout error:', error);
         } finally {
@@ -157,6 +162,8 @@ export const AuthProvider = ({ children }) => {
             delete axios.defaults.headers.common['Authorization'];
             setUser(null);
             setIsAuthenticated(false);
+            // Redirect to login page
+            window.location.href = '/login';
         }
     };
 

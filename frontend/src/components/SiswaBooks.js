@@ -96,8 +96,10 @@ export default function SiswaBooks() {
     // Filter books based on search term and category
     const filteredBooks = books.filter(book => {
         const matchesSearch = book.judul?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                             book.pengarang?.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesCategory = !selectedCategory || book.kategori_id === selectedCategory;
+                            book.pengarang?.toLowerCase().includes(searchTerm.toLowerCase());
+        
+        const matchesCategory = selectedCategory === '' || book.category_id?.toString() === selectedCategory;
+        
         return matchesSearch && matchesCategory;
     });
 

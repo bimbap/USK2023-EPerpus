@@ -1,0 +1,551 @@
+/* SiswaNotifications.css */
+.siswa-notifications {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    padding: 20px;
+}
+
+/* Loading */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    color: white;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-top: 5px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Header */
+.page-header {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.back-btn {
+    padding: 10px 20px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+}
+
+.header-text h1 {
+    margin: 0;
+    color: #1f2937;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.header-text p {
+    margin: 5px 0 0 0;
+    color: #6b7280;
+    font-size: 16px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.role-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.role-badge.siswa {
+    background: linear-gradient(45deg, #3b82f6, #2563eb);
+    color: white;
+}
+
+.logout-btn {
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #ef4444, #dc2626);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* Notification Controls */
+.notification-controls {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: grid;
+    gap: 25px;
+}
+
+.notification-stats {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.stats-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-width: 120px;
+}
+
+.stats-number {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    line-height: 1;
+}
+
+.stats-number.unread {
+    color: #ef4444;
+}
+
+.stats-label {
+    font-size: 12px;
+    color: #6b7280;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-top: 5px;
+}
+
+.notification-filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 16px;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.filter-btn:hover {
+    border-color: #3b82f6;
+    color: #3b82f6;
+}
+
+.filter-btn.active {
+    background: #3b82f6;
+    border-color: #3b82f6;
+    color: white;
+}
+
+.notification-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.mark-all-read-btn {
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #10b981, #059669);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.mark-all-read-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+/* Error Message */
+.error-message {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.error-message p {
+    margin: 0;
+    color: #991b1b;
+    font-weight: 500;
+}
+
+.error-message button {
+    padding: 8px 16px;
+    background: #dc2626;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Notifications Container */
+.notifications-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    overflow: hidden;
+}
+
+/* Empty Notifications */
+.empty-notifications {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6b7280;
+}
+
+.empty-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+}
+
+.empty-notifications h3 {
+    margin: 0 0 10px 0;
+    color: #374151;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.empty-notifications p {
+    margin: 0;
+    font-size: 16px;
+}
+
+/* Notifications List */
+.notifications-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px 25px;
+    border-bottom: 1px solid #f3f4f6;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.notification-item:hover {
+    background: #f9fafb;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.notification-item.unread {
+    background: #f0f9ff;
+    border-left: 4px solid #3b82f6;
+}
+
+.notification-item.unread:hover {
+    background: #e0f2fe;
+}
+
+.notification-item.high {
+    border-left-color: #ef4444;
+}
+
+.notification-item.high.unread {
+    background: #fef2f2;
+    border-left-color: #ef4444;
+}
+
+.notification-item.medium {
+    border-left-color: #f59e0b;
+}
+
+.notification-item.medium.unread {
+    background: #fffbeb;
+    border-left-color: #f59e0b;
+}
+
+.notification-item.low {
+    border-left-color: #10b981;
+}
+
+.notification-item.low.unread {
+    background: #ecfdf5;
+    border-left-color: #10b981;
+}
+
+.notification-icon {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3f4f6;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+}
+
+.notification-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 8px;
+}
+
+.notification-header h4 {
+    margin: 0;
+    color: #1f2937;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.notification-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.priority-indicator {
+    font-size: 16px;
+}
+
+.notification-date {
+    font-size: 12px;
+    color: #6b7280;
+    white-space: nowrap;
+}
+
+.notification-message {
+    margin: 0 0 10px 0;
+    color: #374151;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.notification-book {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: #f3f4f6;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.book-label {
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.book-title {
+    color: #1f2937;
+    font-weight: 600;
+}
+
+.unread-indicator {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 8px;
+    height: 8px;
+    background: #3b82f6;
+    border-radius: 50%;
+}
+
+.notification-item.high .unread-indicator {
+    background: #ef4444;
+}
+
+.notification-item.medium .unread-indicator {
+    background: #f59e0b;
+}
+
+.notification-item.low .unread-indicator {
+    background: #10b981;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .siswa-notifications {
+        padding: 15px;
+    }
+
+    .header-content {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .header-left {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header-right {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .notification-stats {
+        justify-content: center;
+    }
+
+    .stats-item {
+        min-width: 100px;
+    }
+
+    .notification-filters {
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .filter-btn {
+        width: 100%;
+    }
+
+    .notification-actions {
+        justify-content: center;
+    }
+
+    .mark-all-read-btn {
+        width: 100%;
+    }
+
+    .notification-item {
+        padding: 15px 20px;
+    }
+
+    .notification-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .notification-meta {
+        align-self: flex-end;
+    }
+
+    .unread-indicator {
+        top: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .notification-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .notification-icon {
+        align-self: center;
+        margin-top: 0;
+    }
+
+    .notification-header {
+        text-align: center;
+    }
+
+    .notification-meta {
+        align-self: center;
+    }
+
+    .unread-indicator {
+        top: 10px;
+        right: 10px;
+    }
+}

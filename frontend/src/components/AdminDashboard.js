@@ -25,18 +25,20 @@ export default function AdminDashboard() {
 
     const fetchDashboardData = async () => {
         try {
-            const [booksRes, lendingsRes, categoriesRes, publishersRes] = await Promise.all([
+            const [booksRes, lendingsRes, categoriesRes, publishersRes, membersRes] = await Promise.all([
                 axios.get('http://localhost:8000/api/books', { headers: { Authorization: `Bearer ${token}` } }),
                 axios.get('http://localhost:8000/api/admin/lendings', { headers: { Authorization: `Bearer ${token}` } }),
                 axios.get('http://localhost:8000/api/categories', { headers: { Authorization: `Bearer ${token}` } }),
-                axios.get('http://localhost:8000/api/publishers', { headers: { Authorization: `Bearer ${token}` } })
+                axios.get('http://localhost:8000/api/publishers', { headers: { Authorization: `Bearer ${token}` } }),
+                axios.get('http://localhost:8000/api/members', { headers: { Authorization: `Bearer ${token}` } }).catch(() => ({ data: { data: [] } })) // Fallback if members endpoint doesn't exist
             ]);
 
             const lendings = lendingsRes.data.data || lendingsRes.data;
+            const members = membersRes.data.data || membersRes.data || [];
             
             setStats({
                 totalBooks: booksRes.data.data?.length || 0,
-                totalMembers: 0, // Will be implemented later
+                totalMembers: members.length,
                 activeLendings: lendings.filter(l => !l.return_date).length,
                 overdueBooks: lendings.filter(l => !l.return_date && new Date(l.lend_date) < new Date(Date.now() - 14*24*60*60*1000)).length,
                 totalCategories: categoriesRes.data.data?.length || 0,
@@ -150,8 +152,13 @@ export default function AdminDashboard() {
                             <div className="menu-icon">👥</div>
                             <span>Kelola User</span>
                         </button>
+
+                        <button onClick={() => navigate('/admin/members')} className="menu-card">
+                            <div className="menu-icon">👨‍🎓</div>
+                            <span>Kelola Anggota</span>
+                        </button>
                         
-                        <button onClick={() => navigate('/admin/identitas')} className="menu-card">
+                        <button onClick={() => navigate('/admin/settings')} className="menu-card">
                             <div className="menu-icon">⚙️</div>
                             <span>Pengaturan</span>
                         </button>

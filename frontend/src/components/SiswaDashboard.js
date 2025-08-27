@@ -17,11 +17,12 @@ const SiswaDashboard = () => {
     const [recommendedBooks, setRecommendedBooks] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchDashboardData();
-    }, [fetchDashboardData]);
-
     const fetchDashboardData = useCallback(async () => {
+        if (!user?.id) {
+            setLoading(false);
+            return;
+        }
+
         try {
             const token = localStorage.getItem('token');
             
@@ -79,6 +80,10 @@ const SiswaDashboard = () => {
             setLoading(false);
         }
     }, [user?.id]);
+
+    useEffect(() => {
+        fetchDashboardData();
+    }, [fetchDashboardData]);
 
     const quickActions = [
         {
