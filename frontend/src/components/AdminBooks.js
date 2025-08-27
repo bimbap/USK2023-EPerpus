@@ -52,7 +52,7 @@ const AdminBooks = () => {
             }
         } catch (error) {
             console.error('Error fetching books:', error);
-            setBooks([]); // Set empty array if error
+            setBooks([]); // Set empty array if errors
         } finally {
             setLoading(false);
         }
