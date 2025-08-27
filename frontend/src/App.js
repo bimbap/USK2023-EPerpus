@@ -28,8 +28,6 @@ import SiswaLendings from './components/siswa/SiswaLendings';
 import SiswaNotifications from './components/siswa/SiswaNotifications';
 
 // Shared Components
-import CategoriesManagement from './components/CategoriesManagement';
-import PublishersManagement from './components/PublishersManagement';
 import Profile from './components/Profile';
 import Books from './components/Books';
 import UserPeminjaman from './components/UserPeminjaman';
